@@ -1,6 +1,6 @@
 {
   "name": "draft-js-bbcode-converter",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "DraftJS: Convert to and from BBCode",
   "files": [
     "lib/"
