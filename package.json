@@ -1,0 +1,54 @@
+{
+  "name": "draft-js-bbcode-converter",
+  "version": "0.1.0",
+  "description": "DraftJS: Convert to and from BBCode",
+  "main": "lib/main.js",
+  "scripts": {
+    "build": "babel src --ignore '_*' --out-dir lib",
+    "lint": "eslint --max-warnings 0 .",
+    "prepublish": "npm run build",
+    "test": "mocha --compilers js:babel-core/register test/init.js src/**/__tests__/*.js"
+  },
+  "dependencies": {
+    "bbcode-parser": "^1.0.10",
+    "draft-js": "^0.7.0",
+    "draft-js-import-html": "^0.1.10",
+    "draft-js-utils": "^0.1.5",
+    "immutable": "^3.8.1",
+    "react": "^15.1.0",
+    "react-dom": "^15.1.0"
+  },
+  "peerDependencies": {
+    "draft-js": ">=0.5.0",
+    "immutable": "3.x.x"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.9.0",
+    "babel-core": "^6.9.0",
+    "babel-eslint": "^6.0.4",
+    "babel-plugin-transform-class-properties": "^6.9.0",
+    "babel-preset-es2015": "^6.9.0",
+    "babel-preset-stage-0": "^6.3.13",
+    "eslint": "^2.10.2",
+    "eslint-plugin-babel": "^3.2.0",
+    "expect": "^1.20.1",
+    "mocha": "^2.4.5",
+    "react": "^15.0.2",
+    "react-dom": "^15.0.2",
+    "jsdom": "^9.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/hubrick/draft-js-bbcode-converter.git"
+  },
+  "keywords": [
+    "draft-js",
+    "convert",
+    "bbcode"
+  ],
+  "author": "fv@hubrick.com",
+  "bugs": {
+    "url": "https://github.com/hubrick/draft-js-bbcode-converter/issues"
+  },
+  "homepage": "https://github.com/hubrick/draft-js-bbcode-converter#readme"
+}
