@@ -2,6 +2,9 @@
   "name": "draft-js-bbcode-converter",
   "version": "0.1.0",
   "description": "DraftJS: Convert to and from BBCode",
+  "files": [
+    "lib/"
+  ],
   "main": "lib/main.js",
   "scripts": {
     "build": "babel src --ignore '_*' --out-dir lib",
