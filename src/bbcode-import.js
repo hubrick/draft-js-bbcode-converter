@@ -12,7 +12,10 @@ export default function BBCodeToState (bbcode = '', customTags = {}) {
         p: BBTag.createSimpleTag('p'),
         quote: BBTag.createSimpleTag('quote'),
         ul: BBTag.createSimpleTag('ul'),
-        li: BBTag.createSimpleTag('li')
+        li: BBTag.createSimpleTag('li'),
+        img: BBTag.createTag('img', function (tag, content, attr) {
+            return `<figure><img src="${content}"/></figure>`;
+        })
     }, customTags);
 
     const parser = new BBCodeParser(bbTags);

@@ -61,7 +61,7 @@ describe('stateFromBBCode', () => {
                 ],
                 "inlineStyleRanges": [],
                 "text": "~",
-                "type": "unstyled"
+                "type": "atomic"
             }]
         );
     });
