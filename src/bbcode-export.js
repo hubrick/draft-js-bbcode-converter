@@ -262,8 +262,15 @@ class MarkupGenerator {
             let entityType = (entity == null) ? null : entity.getType();
             if (entityType != null && entityType === ENTITY_TYPE.LINK) {
                 let attrs = DATA_TO_ATTR.hasOwnProperty(entityType) ? DATA_TO_ATTR[entityType](entityType, entity) : null;
-                let strAttrs = stringifyAttrs(attrs);
-                return `[url${strAttrs}]${content}[/url]`;
+
+                // let strAttrs = stringifyAttrs(attrs);
+                // return `[url${strAttrs}]${content}[/url]`;
+
+                if (attrs.url) {
+                    return `[url="${attrs.url}"]${content}[/url]`;
+                } else {
+                    return `[url]${content}[/url]`;
+                }
             } else if (entityType != null && entityType === ENTITY_TYPE.IMAGE) {
                 let attrs = DATA_TO_ATTR.hasOwnProperty(entityType) ? DATA_TO_ATTR[entityType](entityType, entity) : null;
                 let strAttrs = stringifyAttrs(attrs);

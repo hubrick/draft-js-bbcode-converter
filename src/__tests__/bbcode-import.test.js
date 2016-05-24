@@ -4,24 +4,44 @@ import stateFromBBCode from '../bbcode-import.js';
 import {convertToRaw} from 'draft-js';
 
 describe('stateFromBBCode', () => {
-    const bbcode = '[p]Hello [b]world[/b][/p]';
+    const bbcode = '[p]Hello [b]world[/b][url="http://google.de"]Google[/url][/p]';
 
     it('should create content state', () => {
         const contentState = stateFromBBCode(bbcode);
         const rawContentState = convertToRaw(contentState);
         const blocks = removeKeys(rawContentState.blocks);
+        const entityMap = rawContentState.entityMap;
+
+        expect(entityMap).toEqual(
+            {
+                '0': {
+                    type: 'LINK',
+                    mutability: 'MUTABLE',
+                    data: {
+                        target: '_blank',
+                        url: 'http://google.de'
+                    }
+                }
+            }
+        );
 
         expect(blocks).toEqual(
              [{
-                "text": "Hello world",
+                "text": "Hello worldGoogle",
                 "type": "unstyled",
                 "depth": 0,
+                "entityRanges": [
+                    {
+                        "key": 0,
+                        "length": 6,
+                        "offset": 11
+                    }
+                ],
                 "inlineStyleRanges": [{
                     "offset": 6,
                     "length": 5,
                     "style": "BOLD"
-                }],
-                "entityRanges": []
+                }]
             }]
         );
     });
