@@ -4,7 +4,8 @@ import stateToBBCode from '../bbcode-export.js';
 import {convertFromRaw, ContentState} from 'draft-js';
 
 describe('stateToBBCode', () => {
-    const bbcode = '[p]Hello [b]world[/b][url="http://google.de"]Google[/url][/p]';
+    const bbcode = `[p]Hello [b]world[/b][url="http://google.de"]Google[/url][/p]
+[p][img]http://image-url.com[/img][/p]`;
 
     it('should create content state', () => {
         const blockArray = {
@@ -14,6 +15,13 @@ describe('stateToBBCode', () => {
                     mutability: 'MUTABLE',
                     data: {
                         url: 'http://google.de'
+                    }
+                },
+                '1': {
+                    type: 'IMAGE',
+                    mutability: 'MUTABLE',
+                    data: {
+                        src: 'http://image-url.com'
                     }
                 }
             },
@@ -33,6 +41,19 @@ describe('stateToBBCode', () => {
                     "length": 5,
                     "style": "BOLD"
                 }]
+            },
+            {
+                "depth": 0,
+                "entityRanges": [
+                    {
+                        "key": 1,
+                        "length": 1,
+                        "offset": 0
+                    }
+                ],
+                "inlineStyleRanges": [],
+                "text": "~",
+                "type": "unstyled"
             }]
         };
 

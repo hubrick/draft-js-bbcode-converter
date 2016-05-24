@@ -273,8 +273,8 @@ class MarkupGenerator {
                 }
             } else if (entityType != null && entityType === ENTITY_TYPE.IMAGE) {
                 let attrs = DATA_TO_ATTR.hasOwnProperty(entityType) ? DATA_TO_ATTR[entityType](entityType, entity) : null;
-                let strAttrs = stringifyAttrs(attrs);
-                return `[img${strAttrs}][/img]`;
+
+                return `[img]${attrs.src}[/img]`;
             } else {
                 return content;
             }

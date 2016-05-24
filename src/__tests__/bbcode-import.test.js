@@ -4,7 +4,7 @@ import stateFromBBCode from '../bbcode-import.js';
 import {convertToRaw} from 'draft-js';
 
 describe('stateFromBBCode', () => {
-    const bbcode = '[p]Hello [b]world[/b][url="http://google.de"]Google[/url][/p]';
+    const bbcode = '[p]Hello [b]world[/b][url="http://google.de"]Google[/url][/p][p][img]http://image-url.com[/img][/p]';
 
     it('should create content state', () => {
         const contentState = stateFromBBCode(bbcode);
@@ -20,6 +20,13 @@ describe('stateFromBBCode', () => {
                     data: {
                         target: '_blank',
                         url: 'http://google.de'
+                    }
+                },
+                '1': {
+                    type: 'IMAGE',
+                    mutability: 'MUTABLE',
+                    data: {
+                        src: 'http://image-url.com'
                     }
                 }
             }
@@ -42,6 +49,19 @@ describe('stateFromBBCode', () => {
                     "length": 5,
                     "style": "BOLD"
                 }]
+            },
+            {
+                "depth": 0,
+                "entityRanges": [
+                    {
+                        "key": 1,
+                        "length": 1,
+                        "offset": 0
+                    }
+                ],
+                "inlineStyleRanges": [],
+                "text": "~",
+                "type": "unstyled"
             }]
         );
     });
