@@ -2,6 +2,8 @@
 
 This is a module for [DraftJS](https://github.com/facebook/draft-js) that will convert BBCode to editor content and back.
 
+Based on [draft-js-import-element](https://github.com/sstur/draft-js-import-element) and [draft-js-export-html](https://github.com/sstur/draft-js-export-html)
+
 ## How to use
 
 

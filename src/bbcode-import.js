@@ -1,6 +1,18 @@
 import BBCodeParser from 'bbcode-parser';
 import BBTag from 'bbcode-parser/bbTag';
-import {stateFromHTML} from 'draft-js-import-html';
+import stateFromElement from './utils/state-from-element.js';
+
+function getElement (html) {
+    let doc;
+    if (typeof DOMParser !== 'undefined') {
+        let parser = new DOMParser();
+        doc = parser.parseFromString(html, 'text/html');
+    } else {
+        doc = document.implementation.createHTMLDocument('');
+        doc.documentElement.innerHTML = html;
+    }
+    return doc.body;
+}
 
 export default function BBCodeToState (bbcode = '', customTags = {}) {
     let bbTags = BBCodeParser.defaultTags();
@@ -14,12 +26,12 @@ export default function BBCodeToState (bbcode = '', customTags = {}) {
         ul: BBTag.createSimpleTag('ul'),
         li: BBTag.createSimpleTag('li'),
         img: BBTag.createTag('img', function (tag, content, attr) {
-            return `<figure><img src="${content}"/></figure>`;
+            const caption = attr['img-caption'] ? `<figcaption>${attr['img-caption']}</figcaption>` : '';
+            return `<figure><img src="${content}"/>${caption}</figure>`;
         })
     }, customTags);
 
     const parser = new BBCodeParser(bbTags);
-    const html = parser.parseString(bbcode);
-
-    return stateFromHTML(html);
+    const htmlString = parser.parseString(bbcode);
+    return stateFromElement(getElement(htmlString));
 }

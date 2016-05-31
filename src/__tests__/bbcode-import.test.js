@@ -4,7 +4,7 @@ import stateFromBBCode from '../bbcode-import.js';
 import {convertToRaw} from 'draft-js';
 
 describe('stateFromBBCode', () => {
-    const bbcode = '[p]Hello [b]world[/b][url="http://google.de"]Google[/url][/p][p][img]http://image-url.com[/img][/p]';
+    const bbcode = '[p]Hello [b]world[/b][url="http://google.de"]Google[/url][/p][p][img img-caption="caption"]http://image-url.com[/img][/p]';
 
     it('should create content state', () => {
         const contentState = stateFromBBCode(bbcode);
@@ -26,7 +26,8 @@ describe('stateFromBBCode', () => {
                     type: 'IMAGE',
                     mutability: 'MUTABLE',
                     data: {
-                        src: 'http://image-url.com'
+                        src: 'http://image-url.com',
+                        caption: 'caption'
                     }
                 }
             }

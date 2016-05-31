@@ -5,7 +5,7 @@ import {convertFromRaw, ContentState} from 'draft-js';
 
 describe('stateToBBCode', () => {
     const bbcode = `[p]Hello [b]world[/b][url="http://google.de"]Google[/url][/p]
-[p][img]http://image-url.com[/img][/p]`;
+[p][img img-caption="caption"]http://image-url.com[/img][/p]`;
 
     it('should create content state', () => {
         const blockArray = {
@@ -21,7 +21,8 @@ describe('stateToBBCode', () => {
                     type: 'IMAGE',
                     mutability: 'MUTABLE',
                     data: {
-                        src: 'http://image-url.com'
+                        src: 'http://image-url.com',
+                        caption: 'caption'
                     }
                 }
             },

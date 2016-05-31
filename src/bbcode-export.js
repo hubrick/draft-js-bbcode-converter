@@ -6,18 +6,9 @@ import {
     INLINE_STYLE
 } from 'draft-js-utils';
 
-// import {
-//     ContentState,
-//     ContentBlock,
-//     EntityInstance
-// } from 'draft-js';
-// import {
-//     CharacterMetaList
-// } from 'draft-js-utils';
-
 const {
     BOLD,
-    // CODE,
+    CODE,
     ITALIC,
     STRIKETHROUGH,
     UNDERLINE
@@ -40,7 +31,8 @@ const ENTITY_ATTR_MAP = {
         height: 'height',
         width: 'width',
         alt: 'alt',
-        className: 'class'
+        className: 'class',
+        caption: 'img-caption'
     }
 };
 
@@ -95,8 +87,8 @@ function getTags (blockType) {
             return ['li'];
         case BLOCK_TYPE.BLOCKQUOTE:
             return ['quote'];
-        // case BLOCK_TYPE.CODE:
-        //     return ['pre', 'code'];
+        case BLOCK_TYPE.CODE:
+            return ['pre', 'code'];
         default:
             return ['p'];
     }
@@ -106,8 +98,8 @@ function getWrapperTag (blockType) {
     switch (blockType) {
         case BLOCK_TYPE.UNORDERED_LIST_ITEM:
             return 'ul';
-        // case BLOCK_TYPE.ORDERED_LIST_ITEM:
-        //     return 'ol';
+        case BLOCK_TYPE.ORDERED_LIST_ITEM:
+            return 'ol';
         default:
             return null;
     }
@@ -251,20 +243,17 @@ class MarkupGenerator {
                 if (style.has(STRIKETHROUGH)) {
                     content = `[s]${content}[/s]`;
                 }
-                // if (style.has(CODE)) {
-                //     // If our block type is CODE then we are already wrapping the whole
-                //     // block in a `<code>` so don't wrap inline code elements.
-                //     content = (blockType === BLOCK_TYPE.CODE) ? content : `<code>${content}</code>`;
-                // }
+                if (style.has(CODE)) {
+                    // If our block type is CODE then we are already wrapping the whole
+                    // block in a `<code>` so don't wrap inline code elements.
+                    content = (blockType === BLOCK_TYPE.CODE) ? content : `<code>${content}</code>`;
+                }
                 return content;
             }).join('');
             let entity = entityKey ? Entity.get(entityKey) : null;
             let entityType = (entity == null) ? null : entity.getType();
             if (entityType != null && entityType === ENTITY_TYPE.LINK) {
                 let attrs = DATA_TO_ATTR.hasOwnProperty(entityType) ? DATA_TO_ATTR[entityType](entityType, entity) : null;
-
-                // let strAttrs = stringifyAttrs(attrs);
-                // return `[url${strAttrs}]${content}[/url]`;
 
                 if (attrs.url) {
                     return `[url="${attrs.url}"]${content}[/url]`;
@@ -273,8 +262,11 @@ class MarkupGenerator {
                 }
             } else if (entityType != null && entityType === ENTITY_TYPE.IMAGE) {
                 let attrs = DATA_TO_ATTR.hasOwnProperty(entityType) ? DATA_TO_ATTR[entityType](entityType, entity) : null;
+                let src = attrs.src;
+                delete attrs.src;
+                let strAttrs = stringifyAttrs(attrs);
 
-                return `[img]${attrs.src}[/img]`;
+                return `[img${strAttrs}]${src}[/img]`;
             } else {
                 return content;
             }

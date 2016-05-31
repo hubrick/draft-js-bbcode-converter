@@ -1,6 +1,6 @@
 {
   "name": "draft-js-bbcode-converter",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "DraftJS: Convert to and from BBCode",
   "files": [
     "lib/"
@@ -14,12 +14,8 @@
   },
   "dependencies": {
     "bbcode-parser": "^1.0.10",
-    "draft-js": "^0.7.0",
-    "draft-js-import-html": "^0.1.10",
     "draft-js-utils": "^0.1.5",
-    "immutable": "^3.8.1",
-    "react": "^15.1.0",
-    "react-dom": "^15.1.0"
+    "synthetic-dom": "^0.1.4"
   },
   "peerDependencies": {
     "draft-js": ">=0.5.0",
@@ -36,8 +32,6 @@
     "eslint-plugin-babel": "^3.2.0",
     "expect": "^1.20.1",
     "mocha": "^2.4.5",
-    "react": "^15.0.2",
-    "react-dom": "^15.0.2",
     "jsdom": "^9.1.0"
   },
   "repository": {
