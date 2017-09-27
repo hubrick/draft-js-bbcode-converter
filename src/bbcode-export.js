@@ -218,7 +218,7 @@ class MarkupGenerator {
     }
 
     renderBlockContent (block) {
-        // let blockType = block.getType();
+        let blockType = block.getType();
         let text = block.getText();
         if (text === '') {
             // Prevent element collapse if completely empty.
@@ -246,7 +246,7 @@ class MarkupGenerator {
                 if (style.has(CODE)) {
                     // If our block type is CODE then we are already wrapping the whole
                     // block in a `<code>` so don't wrap inline code elements.
-                    content = (blockType === BLOCK_TYPE.CODE) ? content : `<code>${content}</code>`;
+                    content = (blockType === BLOCK_TYPE.CODE) ? content : `[code]${content}[/code]`;
                 }
                 return content;
             }).join('');
